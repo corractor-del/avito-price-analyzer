@@ -3,8 +3,8 @@ name: Build Windows EXE (PyInstaller)
 on:
   push:
     tags:
-      - 'v*'
-  workflow_dispatch: {}
+      - 'v*'         # если запушишь тег v1.0.0 — сделаем релиз с .exe
+  workflow_dispatch: {}  # позволяет запустить руками из вкладки Actions
 
 jobs:
   build-windows:
@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AvitoPriceAnalyzer.exe
-          path: dist/AvitoPriceAnalyzer/AvitoPriceAnalyzer.exe
+          path: dist/AvitoPriceAnalyzer.exe   # ВАЖНО: именно такой путь для --onefile
           if-no-files-found: error
 
   release:
