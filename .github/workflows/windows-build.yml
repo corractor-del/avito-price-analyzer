@@ -3,8 +3,8 @@ name: Build Windows EXE (PyInstaller)
 on:
   push:
     tags:
-      - 'v*'         # если запушишь тег v1.0.0 — сделаем релиз с .exe
-  workflow_dispatch: {}  # позволяет запустить руками из вкладки Actions
+      - 'v*'       # если запушишь тег v1.0.0 — соберётся релиз с exe
+  workflow_dispatch: {}  # запуск вручную из вкладки Actions
 
 jobs:
   build-windows:
@@ -25,13 +25,13 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --noconsole --onefile --name "AvitoPriceAnalyzer" main.py
+          pyinstaller --noconsole --onefile --name "AvitoPriceAnalyzer" --icon assets/app.ico main.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: AvitoPriceAnalyzer.exe
-          path: dist/AvitoPriceAnalyzer.exe   # ВАЖНО: именно такой путь для --onefile
+          path: dist/AvitoPriceAnalyzer.exe
           if-no-files-found: error
 
   release:
